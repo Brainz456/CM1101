@@ -5,7 +5,7 @@ from map import *
 from player import current_room
 from player import inventory
 from player import *
-from items import *
+#from items import *
 from gameParser import *
 
 current_room = rooms["Reception"]
