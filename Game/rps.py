@@ -1,12 +1,12 @@
 import random
-choices = ["rock", "paper", "scissors"]
-
+choices1 = ["rock", "paper", "scissors"]
+choices2 = ["heads", "tails"]
 
 def exec_rps():
     print("Lets play Rock, Paper, Scissors")
     
     user_input = str(input("Rock Paper Scissors!!"))
-    compans = random.choice(choices)
+    compans = random.choice(choices1)
     
     if user_input == "rock":
         if compans == "paper":
@@ -36,7 +36,13 @@ def exec_rps():
     
     
     
+def exec_cflip():
+     user_input = str(input("Please select either HEADS or TAILS"))
+     flip = random.choice(choices2)
+     
+     if user_input == flip:
+         print("Nice choice, Guess this means I take a drink")
+     else:
+         print("Haha man, you lost so you drink")
+         print("'You take a drink'")
     
-    
-    
-exec_rps()

@@ -5,10 +5,14 @@ from map import *
 from player import current_room
 from player import inventory
 from player import *
-#from items import *
+
 from gameParser import *
 
-current_room = rooms["Reception"]
+from characters import *
+
+import time
+
+current_room = rooms["Home"]
 
 def list_of_items(items):
     """This function takes a list of items (see items.py for the definition) and
@@ -73,8 +77,12 @@ def print_inventory_items(items):
     <BLANKLINE>
 
     """
-    print("You have " + list_of_items(inventory) + ".")
+    if len(inventory) == 0:
+        print("You have nothing.")
+    else:
+        print("You have " + list_of_items(inventory) + ".")
     print("")
+    time.sleep(3)
 
 
 def print_room(room):
@@ -129,8 +137,10 @@ def print_room(room):
     print("")
     # Display room description
     print(room["description"])
+    time.sleep(10)
     print("")
     print_room_items(room)
+    time.sleep(5)
     
 
 def exit_leads_to(exits, direction):
@@ -205,6 +215,15 @@ def print_menu(exits, room_items, inv_items):
 
     for item in inv_items:
         print("DROP " + item["id"].upper() + " to drop " + item["name"] + ".")
+        
+    for item in inv_items:
+        if current_room == rooms["Home"]:
+            continue
+        else:
+            print("GIVE " + item["id"].upper() + " to give " + item["name"] + " to " + current_room["character"]["id"] + ".")
+    
+    for item in inv_items:
+        print("EXPLAIN " + item["id"].upper() + " to see the item description for " + item["name"] + ".")
     
     print("What do you want to do?")
 
@@ -249,15 +268,16 @@ def execute_take(item_id):
     """
     
     global inventory
-    if len(inventory) > 2:
-        print("You cannot carry more than three kilogrammes (three items)")
+    if len(inventory) > 4:
+        print("You cannot carry more than four items.")
     else:
         for ite in current_room["items"]:
             if item_id == ite["id"]:
                 inventory.append(ite)
                 current_room["items"].remove(ite)
-    #print("You have taken " + current_room["items"["name"]]["item_" + passed_item_id])
+                print("You have taken " + ite["name"] + ".")
     
+    time.sleep(3)
     
 
 def execute_drop(item_id):
@@ -270,8 +290,38 @@ def execute_drop(item_id):
     for ite in inventory:
         if item_id == ite["id"]:
             current_room["items"].append(ite)
-            inventory.remove(ite)       
+            inventory.remove(ite)
+            print("You have dropped " + ite["name"] + " at " + current_room["name"] + ".")
+            time.sleep(3)
+            
+def execute_give(item_id):
+    """This function takes an item_id as an argument and transfers this item from the
+    player's inventory to the character who is in the current room that the
+    player is in. However, if there is no such item in the inventory, this
+    function prints "You don't have that in your inventory."
+    """
     
+    global inventory
+    for ite in inventory:
+        if item_id == ite["id"]:
+            current_room["character"]["items"].append(ite)
+            inventory.remove(ite)
+            print("You have given " + ite["name"] + " to " + current_room["character"]["id"] + ".")
+            time.sleep(3)
+
+
+def execute_explain(item_id):
+    """This function takes an item_id as an argument and prints the description
+    of the item in the inventory. However, if there is no such item in the
+    inventory, this function prints "This item is not in your inventory."
+    """
+    
+    global inventory
+    for ite in inventory:
+        if item_id == ite["id"]:
+            print(ite["description"])
+            time.sleep(15)
+
 
 def execute_command(command):
     """This function takes a command (a list of words as returned by
@@ -301,6 +351,18 @@ def execute_command(command):
             execute_drop(command[1])
         else:
             print("Drop what?")
+            
+    elif command[0] == "explain":
+        if len(command) > 1:
+            execute_explain(command[1])
+        else:
+            print("Explain what?")
+            
+    elif command[0] == "give":
+        if len(command) > 1:
+            execute_give(command[1])
+        else:
+            print("Give what?")
 
     else:
         print("This makes no sense.")
@@ -349,9 +411,6 @@ def main():
 
     # Main game loop
     while True:
-        if item_id in room_reception["items"] and item_money in room_reception["items"] and item_laptop in room_admins["items"] and item_biscuits in room_admins["items"]:
-            print("You have fulfilled all your tasks for today, congratulations!!")
-            break
         # Display game status (room description, inventory etc.)
         print_room(current_room)
         print_inventory_items(inventory)
