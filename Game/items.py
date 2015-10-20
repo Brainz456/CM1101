@@ -4,9 +4,7 @@ item_id = {
     "name": "student id card",
 
     "description":
-    """Your student ID card, you'll need this to get into the student's union.""",
-
-    "mass": 1.0
+    """Your student ID card, you'll need this to get into the student's union."""
 }
 
 item_keys = {
@@ -15,9 +13,7 @@ item_keys = {
     "name": "flat keys",
 
     "description":
-    """The keys to your flat room. Make sure you don't lose them!""",
-    
-    "mass": 1.0
+    """The keys to your flat room. Make sure you don't lose them!"""
 }
 
 item_money = {
@@ -27,10 +23,8 @@ item_money = {
 
     "description":
     """Really? You need me to explain what money is to you? Are you sure you
-    haven't had too much to drink? Ok, well you can use it to buy drinks and
-    get smashed, as well as other stuff...""",
-    
-    "mass": 1.0
+haven't had too much to drink? Ok, well you can use it to buy drinks and
+get smashed, as well as other stuff..."""
 }
 
 item_phone = {
@@ -40,9 +34,7 @@ item_phone = {
 
     "description":
     """Your phone: an iPhone 5S, you can use it to make calls and send text
-    messages, as well as play Flappy Bird when you're as bored as f***.""",
-    
-    "mass": 1.0
+messages, as well as play Flappy Bird when you're as bored as f***."""
 }
 
 item_umbrella = {
@@ -51,9 +43,7 @@ item_umbrella = {
     "name": "an umbrella",
 
     "description":
-    """A fold up umbrella. You'll probably need it when it rains.""",
-    
-    "mass": 1.0
+    """A fold up umbrella. You'll probably need it when it rains."""
 }
 
 item_fedora = {
@@ -63,9 +53,7 @@ item_fedora = {
 
     "description":
     """A fluorescent fedora, it's seen better days, the hat has gone through
-    an awful amount of wear and tear; although it does suit you...""",
-    
-    "mass": 1.0
+an awful amount of wear and tear; although it does suit you..."""
 }
 
 item_scarf = {
@@ -75,9 +63,7 @@ item_scarf = {
     
     "description":
     """A scarf that has a colourful rainbow pattern. When worn with the fedora,
-    you're bound to impress any lass who walks past.""",
-    
-    "mass": 1.0
+you're bound to impress any lass who walks past."""
 }
 
 item_gloves = {
@@ -87,9 +73,7 @@ item_gloves = {
     
     "description":
     """A pair of gloves with the part that covers the fingers removed. These
-    certainly won't keep you warm on a cold night!""",
-    
-    "mass": 1.0
+certainly won't keep you warm on a cold night!"""
 }
 
 item_warmers = {
@@ -99,9 +83,7 @@ item_warmers = {
     
     "description":
     """A pair of beige leg warmers from 1983. Who wears leg warmers in this
-    day and age? Oh wait, that's right, YOU.""",
-    
-    "mass": 1.0
+day and age? Oh wait, that's right, YOU."""
 }
 
 item_socks = {
@@ -110,9 +92,7 @@ item_socks = {
     "name": "a pair of socks",
     
     "description":
-    """A pair of Yik Yak socks. Go sock it to 'em!""",
-    
-    "mass": 1.0
+    """A pair of Yik Yak socks. Go sock it to 'em!"""
 }
 
 item_glasses = {
@@ -122,9 +102,7 @@ item_glasses = {
     
     "description":
     """A pair of 'Where's Wally?' glasses. Unfortunately, both of the lenses
-    are missing, so much for better vision.""",
-    
-    "mass": 1.0
+are missing, so much for better vision."""
 }
 
 item_beer = {
@@ -134,7 +112,5 @@ item_beer = {
     
     "description":
     """A bottle of Cardiff's finest Guiness beer. Looks like you're gonna get
-    drunk tonight.""",
-    
-    "mass": 1.0
+drunk tonight."""
 }

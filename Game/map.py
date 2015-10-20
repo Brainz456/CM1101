@@ -10,7 +10,7 @@ freshers week, and you want to go out, party and have a great time!""",
 
     "exits": {"north": "Students Union", "east": "Tiger Tiger"},
 
-    "items": [item_keys, item_money, item_id, item_phone],
+    "items": [item_keys, item_money, item_id, item_phone]
     
     # No character entry in this room as 'James' is the role of the player.
 }
@@ -25,7 +25,9 @@ room_students_union = {
 
     "items": [item_fedora, item_beer],
     
-    "character": character_Jam # Jaymi
+    "character": character_Jam, # Jaymi
+    
+    "game": {"id": "hangman", "name": "hangman"}
 }
 
 room_retros = {
@@ -38,7 +40,9 @@ room_retros = {
 
     "items": [item_warmers],
     
-    "character": character_Gigi # Georgi
+    "character": character_Gigi, # Georgi
+    
+    "game": {"id": "fetch", "name": "the fetch game"}
 }
 
 room_pryzm = {
@@ -53,7 +57,9 @@ dancefloor...""",
 
     "items": [item_umbrella],
     
-    "character": character_Jaz # Jasmine
+    "character": character_Jaz, # Jasmine
+    
+    "game": {"id": "riddle", "name": "the riddle game"}
 }
 
 room_tigertiger = {
@@ -62,13 +68,15 @@ room_tigertiger = {
     "description":
     """As you enter the nightclub you notice the flashing lights and feel the
 bass of the music. There are many people. But you notice a man over by the bar,
-whom you wish to TALK to. """,
+whom you wish to talk to. """,
 
     "exits": {"west": "Home", "north": "Pryzm", "south": "Glam"},
 
     "items": [item_gloves],
 
-    "character": character_Joe # Josh M
+    "character": character_Joe, # Josh M
+    
+    "game": {"id": "rps", "name": "rock, paper, scissors"}
 }
 
 room_glam = {
@@ -81,7 +89,9 @@ room_glam = {
 
     "items": [item_scarf],
 
-    "character": character_Jam # Jaymi
+    "character": character_Jam, # Jaymi
+    
+    "game": {"id": "number_guesser", "name": "the number guessing game"}
 }
     
 room_livelounge = {
@@ -96,7 +106,9 @@ you can go over to TALK to them.""",
 
     "items": [item_socks],
     
-    "character": character_Josh # Josh S
+    "character": character_Josh, # Josh S
+    
+    "game": {"id": "blackjack", "name": "blackjack"}
 }
 
 room_unse = {
@@ -109,7 +121,9 @@ room_unse = {
     
     "items": [item_glasses],
 
-    "character": character_Pete # The Other Random Person
+    "character": character_Pete, # The Other Random Person
+    
+    "game": {"id": "heads_or_tails", "name": "heads or tails"}
 }
 
 
