@@ -67,11 +67,6 @@ Sound simple enough? Then let's start.""")
     
     
     while strikes < 7 :
-        if selected_answer == "".join(shown_answer):
-            print("You win!!!")
-            return strikes
-        
-        
         for char in selected_answer:
                 if char in used_letters:
                     shown_answer.append(char)
@@ -89,7 +84,11 @@ Sound simple enough? Then let's start.""")
         print("Guess the word:",shown_answer)
         print ("used letters:" , used_letters)
         print("Strikes:", strikes)
- 
+        
+        if selected_answer == "".join(shown_answer):
+            print("You win!!!")
+            return strikes
+        
         
         if strikes == 6:
             print("Hangman! You lose, time to drink!")
