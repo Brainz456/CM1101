@@ -5,10 +5,26 @@ from map import *
 from player import current_room
 from player import inventory
 from player import *
-from items import *
+
 from gameParser import *
 
-current_room = rooms["Reception"]
+from characters import *
+
+from rps import *
+#from hangman import *
+
+import time
+
+current_room = rooms["Home"]
+
+alcoholCounter = 0
+winCounter = 0
+
+easy = {}
+
+medium = {}
+
+hard = {}
 
 def list_of_items(items):
     """This function takes a list of items (see items.py for the definition) and
@@ -73,8 +89,12 @@ def print_inventory_items(items):
     <BLANKLINE>
 
     """
-    print("You have " + list_of_items(inventory) + ".")
+    if len(inventory) == 0:
+        print("You have nothing.")
+    else:
+        print("You have " + list_of_items(inventory) + ".")
     print("")
+    time.sleep(1) # 3
 
 
 def print_room(room):
@@ -129,8 +149,10 @@ def print_room(room):
     print("")
     # Display room description
     print(room["description"])
+    time.sleep(1) # 10
     print("")
     print_room_items(room)
+    time.sleep(1) # 5
     
 
 def exit_leads_to(exits, direction):
@@ -205,6 +227,21 @@ def print_menu(exits, room_items, inv_items):
 
     for item in inv_items:
         print("DROP " + item["id"].upper() + " to drop " + item["name"] + ".")
+        
+    for item in inv_items:
+        if current_room == rooms["Home"]:
+            continue
+        else:
+            print("GIVE " + item["id"].upper() + " to give " + item["name"] + " to " + current_room["character"]["id"] + ".")
+    
+    for item in inv_items:
+        print("EXPLAIN " + item["id"].upper() + " to see the item description for " + item["name"] + ".")
+    
+    
+    if current_room == rooms["Home"]:
+        pass
+    else:
+        print("PLAY " + current_room["game"]["id"].upper() + " to play " + current_room["game"]["name"] + ".")
     
     print("What do you want to do?")
 
@@ -249,15 +286,16 @@ def execute_take(item_id):
     """
     
     global inventory
-    if len(inventory) > 2:
-        print("You cannot carry more than three kilogrammes (three items)")
+    if len(inventory) > 4:
+        print("You cannot carry more than four items.")
     else:
         for ite in current_room["items"]:
             if item_id == ite["id"]:
                 inventory.append(ite)
                 current_room["items"].remove(ite)
-    #print("You have taken " + current_room["items"["name"]]["item_" + passed_item_id])
+                print("You have taken " + ite["name"] + ".")
     
+    time.sleep(1) # 3
     
 
 def execute_drop(item_id):
@@ -270,8 +308,99 @@ def execute_drop(item_id):
     for ite in inventory:
         if item_id == ite["id"]:
             current_room["items"].append(ite)
-            inventory.remove(ite)       
+            inventory.remove(ite)
+            print("You have dropped " + ite["name"] + " at " + current_room["name"] + ".")
+            time.sleep(1) # 3
+            
+def execute_give(item_id):
+    """This function takes an item_id as an argument and transfers this item from the
+    player's inventory to the character who is in the current room that the
+    player is in. However, if there is no such item in the inventory, this
+    function prints "You don't have that in your inventory."
+    """
     
+    global inventory
+    for ite in inventory:
+        if item_id == ite["id"]:
+            current_room["character"]["items"].append(ite)
+            inventory.remove(ite)
+            print("You have given " + ite["name"] + " to " + current_room["character"]["id"] + ".")
+            time.sleep(1) # 3
+
+
+def execute_explain(item_id):
+    """This function takes an item_id as an argument and prints the description
+    of the item in the inventory. However, if there is no such item in the
+    inventory, this function prints "This item is not in your inventory."
+    """
+    
+    global inventory
+    for ite in inventory:
+        if item_id == ite["id"]:
+            print(ite["description"])
+            time.sleep(1) # 15
+            
+
+def execute_play(game_id):
+    """This function takes the name of a mini-game and then calls it. The game
+    is then played by the player, if the player loses the mini-game, the player
+    must "have a drink", which is implemented by a counter. If the player wins
+    the mini-game, then the player doesn't incur any "drinking" penalties, i.e.
+    the counter remains the same.
+    """
+    
+    global alcoholCounter
+    
+    if game_id == "rps":
+        if current_room == rooms["Tiger Tiger"]:
+            alcoholCounter += rps()
+        else:
+            print("You cannot play that game here.")
+            
+    elif game_id == "hangman":
+        if current_room == rooms["Students Union"]:
+            pass
+            # exec_hangman()
+        else:
+            print("You cannot play that game here.")
+            
+    elif game_id == "fetch":
+        if current_room == rooms["Retros"]:
+            pass
+            # fetch()
+        else:
+            print("You cannot play that game here.")
+            
+    elif game_id == "riddle":
+        if current_room == rooms["Pryzm"]:
+            pass
+            # riddle()
+        else:
+            print("You cannot play that game here.")
+            
+    elif game_id == "number_guesser":
+        if current_room == rooms["Glam"]:
+            pass
+            # number_guesser()
+        else:
+            print("You cannot play that game here.")
+            
+    elif game_id == "blackjack":
+        if current_room == rooms["Live Lounge"]:
+            pass
+            # blackjack()
+        else:
+            print("You cannot play that game here.")
+            
+    elif game_id == "heads_or_tails":
+        if current_room == rooms["Unse Unse Unse"]:
+            pass
+            # heads_or_tails()
+        else:
+            print("You cannot play that game here.")
+    
+    time.sleep(3)
+
 
 def execute_command(command):
     """This function takes a command (a list of words as returned by
@@ -301,6 +430,24 @@ def execute_command(command):
             execute_drop(command[1])
         else:
             print("Drop what?")
+            
+    elif command[0] == "explain":
+        if len(command) > 1:
+            execute_explain(command[1])
+        else:
+            print("Explain what?")
+            
+    elif command[0] == "give":
+        if len(command) > 1:
+            execute_give(command[1])
+        else:
+            print("Give what?")
+            
+    elif command[0] == "play":
+        if len(command) > 1:
+            execute_play(command[1])
+        else:
+            print("Play what?")
 
     else:
         print("This makes no sense.")
@@ -347,11 +494,39 @@ def move(exits, direction):
 # This is the entry point of our program
 def main():
 
+    print("WELCOME TO <game name>!")
+    print("Objective: Go out on a pub crawl, play some games and try not to get wasted!")
+    print("Please select the difficulty level. Type: EASY, MEDIUM or HARD.")
+    difficulty = input("> ")
+    normalise_input(difficulty)
+    
     # Main game loop
     while True:
-        if item_id in room_reception["items"] and item_money in room_reception["items"] and item_laptop in room_admins["items"] and item_biscuits in room_admins["items"]:
-            print("You have fulfilled all your tasks for today, congratulations!!")
-            break
+        
+        if difficulty == "easy":
+            if alcoholCounter < 20 and winCounter >= 7 and current_room == rooms["Live Lounge"]:
+                print("Congratulations! You've managed to win all of the mini-games and you're not too drunk either! Thanks for playing!")
+            elif alcoholCounter >= 20:
+                print("Oh dear, you're feeling a bit faint, you're gonna.... you're.....")
+                time.sleep(10)
+                print("You've passed out. GAME OVER! Thanks for playing!")
+        
+        if difficulty == "medium":
+            if alcoholCounter < 15 and winCounter >= 7 and current_room == rooms["Live Lounge"]:
+                print("Congratulations! You've managed to win all of the mini-games and you're not too drunk either! Thanks for playing!")
+            elif alcoholCounter >= 20:
+                print("Oh dear, you're feeling a bit faint, you're gonna.... you're.....")
+                time.sleep(10)
+                print("You've passed out. GAME OVER! Thanks for playing!")
+                
+        if difficulty == "hard":
+            if alcoholCounter < 10 and winCounter >= 7 and current_room == rooms["Live Lounge"]:
+                print("Congratulations! You've managed to win all of the mini-games and you're not too drunk either! Thanks for playing!")
+            elif alcoholCounter >= 20:
+                print("Oh dear, you're feeling a bit faint, you're gonna.... you're.....")
+                time.sleep(10)
+                print("You've passed out. GAME OVER! Thanks for playing!")
+                
         # Display game status (room description, inventory etc.)
         print_room(current_room)
         print_inventory_items(inventory)
