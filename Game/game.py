@@ -291,7 +291,7 @@ def execute_take(item_id):
     item_taken = False
     
     global inventory
-    if len(inventory) > 4:
+    if len(inventory) > 3:
         print("You cannot carry more than four items.")
     elif len(inventory) <= 5:
         for ite in current_room["items"]:
