@@ -19,7 +19,9 @@ room_students_union = {
     "name": "Student's Union",
 
     "description":
-    """               """,
+    """The Union isn't looking too busy. There are a few people over by the bar
+but the dance floor is virtually empty! A lot quieter than some of the other
+nightclubs tonight!""",
 
     "exits":  {"south": "Home", "east": "Retros"},
 
@@ -34,7 +36,9 @@ room_retros = {
     "name": "Retros",
 
     "description":
-    """           """,
+    """The flashing lights and the upbeat tunes of the 1970s sweep over you.
+You notice some guys in the corner drinking bottles of Tequilla; while on the
+dance floor, two fluttering lovebirds are experiencing their first kiss together.""",
 
     "exits": {"west": "Students Union", "south": "Pryzm"},
 
@@ -49,9 +53,10 @@ room_pryzm = {
     "name": "Prysm",
 
     "description":
-    """This nightclub looks exactly the same as the last, though the music
-seems to be worse… You see a girl that you want to TALK to on the
-dancefloor...""",
+    """This nightclub looks very similar to other nightclubs you've been too
+before, though the music seems to be worse... You see a good number of people
+out on the dance floor dancing their socks off, and a few people at the bar
+(including Jaz) having some drinks...""",
 
     "exits": {"east": "Live Lounge", "south": "Tiger Tiger", "north": "Retros"},
 
@@ -83,7 +88,9 @@ room_glam = {
     "name": "Glam",
     
     "description":
-    """             """,
+    """The room is L shaped, expansive and strangely well lit, without using
+disco lighting. You can see a group of drunk students over by the bar, oblivious
+to what is happening around them.""",
     
     "exits": {"east": "Unse Unse Unse", "north": "Tiger Tiger"},
 
@@ -91,7 +98,7 @@ room_glam = {
 
     "character": character_Jam, # Jaymi
     
-    "game": {"id": "number_guesser", "name": "the number guessing game"}
+    "game": {"id": "numberguesser", "name": "the number guessing game"}
 }
     
 room_livelounge = {
@@ -100,9 +107,9 @@ room_livelounge = {
     "description":
     """A somewhat shockingly decent place, though it is an awful lot quieter
 than the previous nightclubs. A fellow student is nursing a beer near the door,
-you can go over to TALK to them.""",
+you can go over to talk to them.""",
     
-    "exits": {"west": "Prysm", "south": "Unse Unse Unse"},
+    "exits": {"west": "Pryzm", "south": "Unse Unse Unse"},
 
     "items": [item_socks],
     
@@ -115,7 +122,9 @@ room_unse = {
     "name" : "Unse Unse Unse",
     
     "description":
-    """            """,
+    """This nightclub is awfully strange; there are blinking lights everywhere
+you look, giving people epilepsy. Aside from that, there are some 3rd year students
+having a 'smashing' time on the dance floor!""",
     
     "exits": {"west": "Glam", "north": "Live Lounge"},
     
@@ -123,7 +132,7 @@ room_unse = {
 
     "character": character_Pete, # The Other Random Person
     
-    "game": {"id": "heads_or_tails", "name": "heads or tails"}
+    "game": {"id": "mastermind", "name": "Mastermind"}
 }
 
 

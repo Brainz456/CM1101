@@ -11,7 +11,10 @@ from gameParser import *
 from characters import *
 
 from rps import *
-#from hangman import *
+from hangman import *
+from mastermind import *
+from number_guesser import *
+from Riddles import *
 
 import time
 
@@ -19,12 +22,6 @@ current_room = rooms["Home"]
 
 alcoholCounter = 0
 winCounter = 0
-
-easy = {}
-
-medium = {}
-
-hard = {}
 
 def list_of_items(items):
     """This function takes a list of items (see items.py for the definition) and
@@ -274,7 +271,14 @@ def execute_go(direction):
     global current_room
     
     if is_valid_exit((current_room["exits"]), direction) == True:
-        current_room = move(current_room["exits"], direction)
+        if item_id not in inventory:
+            print("You cannot go to the Student's Union without your ID!")
+            time.sleep(1)
+        else:
+            current_room = move(current_room["exits"], direction)
+    elif is_valid_exit((current_room["exits"]), direction) == False:
+        print("This doesn't make sense.")
+
     return current_room
 
 
@@ -284,17 +288,22 @@ def execute_take(item_id):
     there is no such item in the room, this function prints
     "You cannot take that."
     """
+    item_taken = False
     
     global inventory
     if len(inventory) > 4:
         print("You cannot carry more than four items.")
-    else:
+    elif len(inventory) <= 5:
         for ite in current_room["items"]:
             if item_id == ite["id"]:
                 inventory.append(ite)
                 current_room["items"].remove(ite)
                 print("You have taken " + ite["name"] + ".")
+                item_taken = True
+    if item_taken == False:
+        print("This doesn't make sense.")
     
+    item_taken = False
     time.sleep(1) # 3
     
 
@@ -304,13 +313,24 @@ def execute_drop(item_id):
     no such item in the inventory, this function prints "You cannot drop that."
     """
     
+    item_dropped = False
+    
     global inventory
+    
     for ite in inventory:
         if item_id == ite["id"]:
             current_room["items"].append(ite)
             inventory.remove(ite)
             print("You have dropped " + ite["name"] + " at " + current_room["name"] + ".")
+            item_dropped = True
             time.sleep(1) # 3
+            
+    if item_dropped == False:
+        print("This doesn't make sense.")
+        
+    item_taken = False
+    time.sleep(1) # 3
+    
             
 def execute_give(item_id):
     """This function takes an item_id as an argument and transfers this item from the
@@ -350,56 +370,112 @@ def execute_play(game_id):
     """
     
     global alcoholCounter
+    global winCounter
     
-    if game_id == "rps":
+    if game_id == "rps": # RPS works fine
         if current_room == rooms["Tiger Tiger"]:
-            alcoholCounter += rps()
+            alc, win = rps()
+            if alc == True and win == False:
+                alcoholCounter += 1
+            elif alc == False and win == True:
+                winCounter += 1            
         else:
             print("You cannot play that game here.")
             
-    elif game_id == "hangman":
+    elif game_id == "hangman": # Problem! Hangman won't seem to reset when you play it again!
         if current_room == rooms["Students Union"]:
-            pass
-            # exec_hangman()
+            alcFromHangman = exec_hangman()
+            if alcFromHangman < 6:
+                winCounter += 1
+            alcoholCounter += alcFromHangman
         else:
             print("You cannot play that game here.")
             
-    elif game_id == "fetch":
+    elif game_id == "fetch": # Works fine.
         if current_room == rooms["Retros"]:
-            pass
-            # fetch()
+            fetch()
         else:
             print("You cannot play that game here.")
             
-    elif game_id == "riddle":
+    elif game_id == "riddle": # Works fine.
         if current_room == rooms["Pryzm"]:
-            pass
-            # riddle()
+            riddleNumber = random.randint(1, 6)
+            if (riddleNumber == 1):
+                alcFromRiddle, winFromRiddle = riddle_one()
+                if (alcFromRiddle == True and winFromRiddle == False):
+                    alcoholCounter += 1
+                else:
+                    winCounter += 1
+            if (riddleNumber == 2):
+                alcFromRiddle, winFromRiddle = riddle_two()
+                if (alcFromRiddle == True and winFromRiddle == False):
+                    alcoholCounter += 1
+                else:
+                    winCounter += 1
+            if (riddleNumber == 3):
+                alcFromRiddle, winFromRiddle = riddle_three()
+                if (alcFromRiddle == True and winFromRiddle == False):
+                    alcoholCounter += 1
+                else:
+                    winCounter += 1
+            if (riddleNumber == 4):
+                alcFromRiddle, winFromRiddle = riddle_four()
+                if (alcFromRiddle == True and winFromRiddle == False):
+                    alcoholCounter += 1
+                else:
+                    winCounter += 1
+            if (riddleNumber == 5):
+                alcFromRiddle, winFromRiddle = riddle_five()
+                if (alcFromRiddle == True and winFromRiddle == False):
+                    alcoholCounter += 1
+                else:
+                    winCounter += 1
         else:
             print("You cannot play that game here.")
             
-    elif game_id == "number_guesser":
+    elif game_id == "numberguesser": # Works fine.
         if current_room == rooms["Glam"]:
             pass
-            # number_guesser()
+            alcoholCounter += number_guesser()
         else:
             print("You cannot play that game here.")
             
-    elif game_id == "blackjack":
+    elif game_id == "blackjack": # Untested
         if current_room == rooms["Live Lounge"]:
             pass
             # blackjack()
         else:
             print("You cannot play that game here.")
             
-    elif game_id == "heads_or_tails":
+    elif game_id == "mastermind": # Works fine.
         if current_room == rooms["Unse Unse Unse"]:
-            pass
-            # heads_or_tails()
+            alcoholCounter += mastermind()
+            winCounter += 1
         else:
             print("You cannot play that game here.")
     
+    else:
+        print("This doesn't make sense.")
+    
+    print("Overall, you have consumed " + str(alcoholCounter) + " units of alcohol.")
+    print("Overall, you have won the mini-games " + str(winCounter) + " times.")
     time.sleep(3)
+
+
+def fetch():
+    
+    global winCounter
+    
+    if item_scarf in current_room["character"]["items"]:
+        print("You found it! Oh, thank you very much!")
+        print("Gigi goes back to the dance floor.")
+        winCounter += 1
+        
+    else:
+        print("Gigi walks over to you. He says he's on a pub crawl too and he's lost his rainbow scarf! He wants you to find it.")
+        print("Objective: Find the rainbow scarf and bring it to Gigi.")
+        print("When you find the scarf, return to Retros and type GIVE SCARF.")
+        print("When that's done, type PLAY FETCH again to complete the quest.")
 
 
 def execute_command(command):
@@ -494,38 +570,69 @@ def move(exits, direction):
 # This is the entry point of our program
 def main():
 
-    print("WELCOME TO <game name>!")
-    print("Objective: Go out on a pub crawl, play some games and try not to get wasted!")
-    print("Please select the difficulty level. Type: EASY, MEDIUM or HARD.")
-    difficulty = input("> ")
-    normalise_input(difficulty)
+    print("WELCOME TO...")
+    print(" _____________________________________________________________________________________________________________________________")
+    print("|  _____   _____   _____        _____       ___  ___       ___   _____   _   _   _____   _____        _____   _____    _____  |")
+    print("| /  ___| | ____| |_   _|      /  ___/     /   |/   |     /   | /  ___/ | | | | | ____| |  _  \      |  _  \ |  _  \  /  _  \ |")
+    print("| | |     | |__     | |        | |___     / /|   /| |    / /| | | |___  | |_| | | |__   | | | |      | |_| | | |_| |  | | | | |") 
+    print("| | |  _  |  __|    | |        \___  \   / / |__/ | |   / / | | \___  \ |  _  | |  __|  | | | |      |  _  { |  _  /  | | | | |")
+    print("| | |_| | | |___    | |         ___| |  / /       | |  / /  | |  ___| | | | | | | |___  | |_| |      | |_| | | | \ \  | |_| | |")
+    print("| \_____/ |_____|   |_|        /_____/ /_/        |_| /_/   |_| /_____/ |_| |_| |_____| |_____/      |_____/ |_|  \_\ \_____/ |")
+    print("|_____________________________________________________________________________________________________________________________|")
+    print("")
+    print("Go out on a pub crawl, play some mini-games and try not to get wasted!")
+    print("RULES and OBJECTIVES")
+    print("1. You can only carry up to four items at any time.")
+    print("2. Play all of the mini-games in each of the 7 areas.")
+    print("3. Win a combination of mini-games at least 10 times.")
+    print("   For example, you could win hangman 4 times and each of the other mini-games once to win the main game.")
+    print("4. If you lose a mini-game, then you have to 'have a drink' and gain a penalty in units of alcohol consumed.")
+    print("   Different mini-games have different penalties, so think carefully before you decide which mini-game to play.")
+    print("5. Incur too many drinking penalties, and you will lose the main game.")
+    
+    while True:
+        print("Please select the difficulty level. Type: EASY, MEDIUM or HARD.")
+        print("Beware: the harder the difficulty, the less alcohol you will be able to consume before you pass out, and the more mini-games you will have to win.")
+        difficulty = input("> ")
+        normalise_input(difficulty)
+    
+        if difficulty != "easy" and difficulty != "medium" and difficulty != "hard":
+            print("This doesn't make sense.")
+        else:
+            break
     
     # Main game loop
     while True:
         
         if difficulty == "easy":
-            if alcoholCounter < 20 and winCounter >= 7 and current_room == rooms["Live Lounge"]:
+            if alcoholCounter < 40 and winCounter >= 5:
                 print("Congratulations! You've managed to win all of the mini-games and you're not too drunk either! Thanks for playing!")
-            elif alcoholCounter >= 20:
+                break
+            elif alcoholCounter >= 40:
                 print("Oh dear, you're feeling a bit faint, you're gonna.... you're.....")
                 time.sleep(10)
                 print("You've passed out. GAME OVER! Thanks for playing!")
+                break
         
         if difficulty == "medium":
-            if alcoholCounter < 15 and winCounter >= 7 and current_room == rooms["Live Lounge"]:
+            if alcoholCounter < 25 and winCounter >= 6:
                 print("Congratulations! You've managed to win all of the mini-games and you're not too drunk either! Thanks for playing!")
-            elif alcoholCounter >= 20:
+                break
+            elif alcoholCounter >= 25:
                 print("Oh dear, you're feeling a bit faint, you're gonna.... you're.....")
                 time.sleep(10)
                 print("You've passed out. GAME OVER! Thanks for playing!")
+                break
                 
         if difficulty == "hard":
-            if alcoholCounter < 10 and winCounter >= 7 and current_room == rooms["Live Lounge"]:
+            if alcoholCounter < 10 and winCounter >= 7:
                 print("Congratulations! You've managed to win all of the mini-games and you're not too drunk either! Thanks for playing!")
-            elif alcoholCounter >= 20:
+                break
+            elif alcoholCounter >= 10:
                 print("Oh dear, you're feeling a bit faint, you're gonna.... you're.....")
                 time.sleep(10)
                 print("You've passed out. GAME OVER! Thanks for playing!")
+                break
                 
         # Display game status (room description, inventory etc.)
         print_room(current_room)
