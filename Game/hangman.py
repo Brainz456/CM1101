@@ -67,7 +67,8 @@ Sound simple enough? Then let's start.""")
     
     
     while strikes < 7 :
-        if selected_answer == "".join(shown_answer):
+        joined_answer = "".join(shown_answer)
+        if selected_answer == joined_answer:
             print("You win!!!")
             return strikes
         
@@ -112,4 +113,4 @@ Sound simple enough? Then let's start.""")
 
 
 
-exec_hangman()
+#exec_hangman()
