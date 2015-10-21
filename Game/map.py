@@ -50,7 +50,7 @@ dance floor, two fluttering lovebirds are experiencing their first kiss together
 }
 
 room_pryzm = {
-    "name": "Prysm",
+    "name": "Pryzm",
 
     "description":
     """This nightclub looks very similar to other nightclubs you've been too

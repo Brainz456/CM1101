@@ -271,8 +271,8 @@ def execute_go(direction):
     global current_room
     
     if is_valid_exit((current_room["exits"]), direction) == True:
-        if item_id not in inventory:
-            print("You cannot go to the Student's Union without your ID!")
+        if item_id not in inventory or item_keys not in inventory:
+            print("You cannot leave the house without your house keys and student ID!")
             time.sleep(1)
         else:
             current_room = move(current_room["exits"], direction)
@@ -583,7 +583,7 @@ def main():
     print("Go out on a pub crawl, play some mini-games and try not to get wasted!")
     print("RULES and OBJECTIVES")
     print("1. You can only carry up to four items at any time.")
-    print("2. Play all of the mini-games in each of the 7 areas.")
+    print("2. Play some of the mini-games in each of the 7 areas.")
     print("3. Win a combination of mini-games at least 10 times.")
     print("   For example, you could win hangman 4 times and each of the other mini-games once to win the main game.")
     print("4. If you lose a mini-game, then you have to 'have a drink' and gain a penalty in units of alcohol consumed.")
@@ -594,9 +594,10 @@ def main():
         print("Please select the difficulty level. Type: EASY, MEDIUM or HARD.")
         print("Beware: the harder the difficulty, the less alcohol you will be able to consume before you pass out, and the more mini-games you will have to win.")
         difficulty = input("> ")
-        normalise_input(difficulty)
+        break
+        difficulty = normalise_input(difficulty)
     
-        if difficulty != "easy" and difficulty != "medium" and difficulty != "hard":
+        if difficulty != "easy" or "medium" or "hard":
             print("This doesn't make sense.")
         else:
             break
