@@ -67,11 +67,6 @@ Sound simple enough? Then let's start.""")
     
     
     while strikes < 7:
-                
-        joined_answer = "".join(shown_answer)
-        #if selected_answer == joined_answer:
-            #print("You win!!!")
-            #return strikes
         
         for char in selected_answer:
                 if char in used_letters:
@@ -83,7 +78,8 @@ Sound simple enough? Then let's start.""")
                 if char in selected_answer:
                     pass
                 else:
-                    strikes += 1        
+                    strikes += 1  
+                    
         print("")
         print(picture[strikes])
         print("")
