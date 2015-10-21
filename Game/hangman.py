@@ -1,6 +1,6 @@
 from time import *
 import random
-answer = ["CARDIFF","UNIVERSITY","STUDENT","FRESHERS","PYTHON","COMPILER","INTERPRETER"]
+answer = ["CARDIFF","UNIVERSITY","STUDENT","FRESHERS","PYTHON","COMPILER","INTERPRETER", "BREAKPOINT", "NIGHTLIFE", "TECHNOLOGY", "GUINESS", "WINDOWS"]
 used_letters = []
 picture = {0 : """ 
     +---+
@@ -66,7 +66,13 @@ Sound simple enough? Then let's start.""")
     sleep(10)    
     
     
-    while strikes < 7 :
+    while strikes < 7:
+                
+        joined_answer = "".join(shown_answer)
+        #if selected_answer == joined_answer:
+            #print("You win!!!")
+            #return strikes
+        
         for char in selected_answer:
                 if char in used_letters:
                     shown_answer.append(char)
@@ -92,7 +98,7 @@ Sound simple enough? Then let's start.""")
         
         if strikes == 6:
             print("Hangman! You lose, time to drink!")
-            return strikes 
+            return strikes
         user_input = str(input("Please enter a letter to guess:"))
         shown_answer = []       
         strikes = 0
@@ -104,11 +110,3 @@ Sound simple enough? Then let's start.""")
         else:
             user_input = user_input.upper()
             used_letters.append(user_input)
-            
-    
-    
-
-
-
-
-exec_hangman()
