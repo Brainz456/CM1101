@@ -85,7 +85,7 @@ def blackjack():
                                 pass
                             else:
                                 numbers.remove(number)
-                    print("The dealer's shown card is:", dealers_hand[0:n])
+                    print("The dealer's shown card is:", dealers_hand[0:n-1])
                     time.sleep(1)
                     dealers_score = 0
                     for card in dealers_hand:
@@ -132,5 +132,3 @@ def blackjack():
                 time.sleep(3)
             
     return strikes
-                                                    
-blackjack()
