@@ -15,6 +15,7 @@ from hangman import *
 from mastermind import *
 from number_guesser import *
 from Riddles import *
+from blackjack import *
 
 import time
 
@@ -443,7 +444,7 @@ def execute_play(game_id):
     elif game_id == "blackjack": # Untested
         if current_room == rooms["Live Lounge"]:
             pass
-            # blackjack()
+            alcoholCounter += blackjack()
         else:
             print("You cannot play that game here.")
             
@@ -594,13 +595,12 @@ def main():
         print("Please select the difficulty level. Type: EASY, MEDIUM or HARD.")
         print("Beware: the harder the difficulty, the less alcohol you will be able to consume before you pass out, and the more mini-games you will have to win.")
         difficulty = input("> ")
-        break
         difficulty = normalise_input(difficulty)
     
-        if difficulty != "easy" or "medium" or "hard":
-            print("This doesn't make sense.")
-        else:
+        if difficulty == "easy" or "medium" or "hard":
             break
+        else:
+            print("that doesn't make sense")
     
     # Main game loop
     while True:

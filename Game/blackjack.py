@@ -118,4 +118,4 @@ def blackjack():
                             time.sleep(3)
     return strikes
                                                     
-blackjack()
+#blackjack()
