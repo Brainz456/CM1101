@@ -106,3 +106,5 @@ Sound simple enough? Then let's start.""")
         else:
             user_input = user_input.upper()
             used_letters.append(user_input)
+
+

@@ -104,6 +104,7 @@ Right...Let's begin then.""")
                     if dealers_score > 21:
                         print("The Dealer went bust. You Win!")
                         counter += 1
+                        break
                     if dealers_score <= 15:
                         print("The dealer Hits...")             
                         card = random.choice(numbers)
@@ -142,4 +143,3 @@ Right...Let's begin then.""")
                 time.sleep(3)
             
     return strikes
-blackjack()

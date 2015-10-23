@@ -5,6 +5,7 @@ penaltyCounter = 0
 def number_guesser():
     
     global penaltyCounter
+    penaltyCounter = 0
     
     while True:
         guess = int(input("Your guess: "))
