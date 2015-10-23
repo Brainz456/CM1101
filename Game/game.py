@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+import os
 from map import rooms
 from map import *
 from player import current_room
@@ -570,7 +570,7 @@ def move(exits, direction):
 
 # This is the entry point of our program
 def main():
-
+    os.system("color 02")
     print("WELCOME TO...")
     print(" _____________________________________________________________________________________________________________________________")
     print("|  _____   _____   _____        _____       ___  ___       ___   _____   _   _   _____   _____        _____   _____    _____  |")
