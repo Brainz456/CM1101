@@ -438,6 +438,7 @@ def execute_play(game_id):
         if current_room == rooms["Glam"]:
             pass
             alcoholCounter += number_guesser()
+            winCounter += 1
         else:
             print("You cannot play that game here.")
             
@@ -445,6 +446,7 @@ def execute_play(game_id):
         if current_room == rooms["Live Lounge"]:
             pass
             alcoholCounter += blackjack()
+            winCounter += 1
         else:
             print("You cannot play that game here.")
             
@@ -595,7 +597,6 @@ def main():
         print("Please select the difficulty level. Type: EASY, MEDIUM or HARD.")
         print("Beware: the harder the difficulty, the less alcohol you will be able to consume before you pass out, and the more mini-games you will have to win.")
         difficulty = input("> ")
-        difficulty = normalise_input(difficulty)
     
         if difficulty == "easy" or "medium" or "hard":
             break

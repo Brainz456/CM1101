@@ -8,6 +8,7 @@ def number_guesser():
     penaltyCounter = 0
     
     while True:
+        print("Guess a number between 1 and 10")
         guess = int(input("Your guess: "))
         if guess == number:
             print("Correct.")
